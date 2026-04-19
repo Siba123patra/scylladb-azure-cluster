@@ -1,0 +1,8 @@
+# Prometheus scrape targets for ScyllaDB nodes
+- targets:
+    - 10.0.1.4:9180   # scylla-node-1
+    - 10.0.1.5:9180   # scylla-node-2
+    - 10.0.1.6:9180   # scylla-node-3
+  labels:
+    cluster: azure-scylla-cluster
+    dc: eastus
