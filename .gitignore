@@ -1,0 +1,14 @@
+*.key
+*.pem
+*.crt
+.env
+.env.*
+secrets/
+*password*
+*credentials*
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
+logs/
