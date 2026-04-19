@@ -1,0 +1,47 @@
+# ScyllaDB Azure Cluster Configuration
+# Replace all <PLACEHOLDER> values before deploying
+
+cluster_name: 'azure-scylla-cluster'
+
+listen_address: <NODE_PRIVATE_IP>
+rpc_address: <NODE_PRIVATE_IP>
+broadcast_address: <NODE_PRIVATE_IP>
+broadcast_rpc_address: <NODE_PRIVATE_IP>
+
+seed_provider:
+  - class_name: org.apache.cassandra.locator.SimpleSeedProvider
+    parameters:
+      - seeds: '<NODE1_IP>,<NODE2_IP>'
+
+endpoint_snitch: GossipingPropertyFileSnitch
+
+data_file_directories:
+  - /var/lib/scylla/data
+commitlog_directory: /var/lib/scylla/commitlog
+hints_directory: /var/lib/scylla/hints
+
+# LDAP Authentication
+authenticator: com.scylladb.auth.SaslauthdAuthenticator
+authorizer: CassandraAuthorizer
+role_manager: CassandraRoleManager
+
+# Prometheus Metrics
+prometheus_address: 0.0.0.0
+prometheus_port: 9180
+
+# Client TLS
+client_encryption_options:
+  enabled: true
+  certificate: /etc/scylla/ssl/scylla.crt
+  keyfile: /etc/scylla/ssl/scylla.key
+  require_client_auth: false
+
+# Tombstone warnings
+tombstone_warn_threshold: 1000
+tombstone_failure_threshold: 100000
+
+read_request_timeout_in_ms: 5000
+write_request_timeout_in_ms: 2000
+
+# Audit: set to "table" or "syslog" to enable
+audit: none
